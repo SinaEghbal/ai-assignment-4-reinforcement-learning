@@ -5,6 +5,11 @@ In this project, you will implement Value Iteration and Q-learning. You will tes
 The code for this project contains the following files, which are available in the
 folder ```code``` of this repository.
 
+**Note:** Througout the handout, we will refer to the Python interpreter executable
+as ```python```. Change this to match the setup on the machine you're working. For instance,
+in ```Ubuntu 14.04``` you'll need to use ```python3``` instead of ```python``` since
+the latter is pointing to the Python 2.x interpreter.
+
 ### Files you will edit and you NEED to submit
 
 - [```valueIterationAgents.py```](../code/valueIterationAgents.py) - A
@@ -29,17 +34,21 @@ which is particularly useful for Q-learners.
 
 - [```gridworld.py```](../code/gridworld.py) - The ```GridWorld``` implementation.
 
+- [```pacman.py```](../code/pacman.py) - The implementation of the ```PacMan```
+game.
+
 - [```featureExtractors.py```](../code/featureExtractors.py) - Classes for
 extracting features on _(state,action)_ pairs. Used for the approximate Q-Learning
 agent (in [```qlearningAgents.py```](../code/qlearningAgents.py)).
+
+- [```game.py```](../code/game.py) - Classes used to represent Agents and layouts.
 
 ### Files you CAN ignore
 
 - [```environment.py```](../code/environment.py) - Abstract class for general
 reinforcement learning environments. Used by [```gridworld.py```](../code/gridworld.py).
 
-- [```graphicsGridworldDisplay.py```](../code/graphicsGridworldDisplay.py) -
- ```Gridworld``` graphical display.
+- [```graphicsGridworldDisplay.py```](../code/graphicsGridworldDisplay.py) -  ```Gridworld``` graphical display.
 
 - [```graphicsUtils.py```](../code/graphicsUtils.py) - Assorted graphics
 utilities.
@@ -53,10 +62,24 @@ harness. You will run this but not edit it.
 - [```graphicsCrawlerDisplay.py```](../code/graphicsCrawlerDisplay.py) -
 Graphical display of the crawler robot.
 
+- [```ghostAgents.py```](../code/ghostAgents.py) - Hand-coded policies to control the
+ghosts in PacMan.
+
+- [```pacmanAgents.py```](../code/pacmanAgents.py) - Hand-coded policies for the PacMan
+agent, not used in the assignment (useful for testing).
+
+- [```keyboardAgents.py```](../code/keyboardAgents.py) - Classes implementing "live"
+controllers (i.e. the control is via commands entered with the keyboard).
+
 ### What to Submit
 
+You will fill in portions of the following files:
 
-You will fill in portions of <code><a href="docs/valueIterationAgents.html">valueIterationAgents.py</a></code>, <code><a href="docs/qlearningAgents.html">qlearningAgents.py</a></code>, and <code><a href="docs/analysis.html">analysis.py</a></code> during the assignment. You should submit **only** these files.  Please don't change any others.</p>
+ - [```valueIterationAgents.py```](../code/valueIterationAgents.py)
+ - [```qlearningAgents.py```](../code/qlearningAgents.py)
+ - [```analysis.py```](../code/analysis.py)
+
+during the assignment. You should submit **only** these files.  Please don't change any others.</p>
 
 ### Evaluation
 
