@@ -65,8 +65,8 @@ are numbers in square quarters, and policies are arrows out from each square.
 
 **Important:** Use the "batch" version of Value Iteration where each vector
 V<sub>k</sub> is computed from a fixed vector V<sub>k-1</sub> (like in Lecture),
-not the "online" version where one single weight vector is updated in place.  
-The difference is discussed in [Sutton & Barto book](http://www.cs.ualberta.ca/~sutton/book/ebook/node41.html)
+not the "online" version where one single weight vector is updated in place. The
+difference is discussed in [Sutton & Barto book](http://www.cs.ualberta.ca/~sutton/book/ebook/node41.html)
 in the 6th paragraph of chapter 4.1.
 
 **Note:** A policy synthesized from values of depth _k_ (which reflect the next _k_ rewards)
@@ -77,7 +77,7 @@ You may either return the synthesized policy <img src="images/pi.png" alt="pi"/>
 or the actual policy for the kth iteration, <img src="images/pi.png" alt="pi"/><sub>k</sub>,
 which you'll get if you store optimal actions from the most recent round of value iteration updates.
 
-The following command loads your ```ValueIteratioNAgent```, computing a policy and executing
+The following command loads your ```ValueIterationAgent```, computing a policy and executing
 it 10 times. Press a key to cycle through values, Q-values, and the simulation.  
 You should find that the value of the start state  (V(_start_), which you can read
 off of the GUI) and the empirical resulting average reward (printed after the 10
@@ -106,6 +106,8 @@ the actual argmax you want may be a key not in the counter!
 your values, Q-values, and policies after fixed numbers of iterations and at
 convergence (e.g. after 100 iterations).
 
+[Go back to Index of Handout](index.md)
+
 ### Exercise 2 (2.5 marks)
 
 The layout  of ```BridgeGrid``` is a grid world map with the a low-reward terminal state and a
@@ -129,6 +131,8 @@ that with this change, a correct value iteration agent should cross the bridge.
 Note that this part is tested with our Value Iteration agent, so if you have an
 error in Value Iteration, your agent may cross the bridge for incorrect
 settings of the parameters.
+
+[Go back to Index of Handout](index.md)
 
 ### Exercise 3 (12.5 marks)
 
@@ -164,15 +168,15 @@ impossible by returning the string ```'NOT POSSIBLE'```.
 
 Here are the optimal policy types you should attempt to produce:
 
- 1. Prefer the close exit (+1), risking the cliff (-10)
+ a. Prefer the close exit (+1), risking the cliff (-10)
 
- 2. Prefer the close exit (+1), but avoiding the cliff (-10)
+ b. Prefer the close exit (+1), but avoiding the cliff (-10)
 
- 3. Prefer the distant exit (+10), risking the cliff (-10)
+ c. Prefer the distant exit (+10), risking the cliff (-10)
 
- 4. Prefer the distant exit (+10), avoiding the cliff (-10)
+ d. Prefer the distant exit (+10), avoiding the cliff (-10)
 
- 5. Avoid both exits and the cliff (so an episode should never terminate)
+ e. Avoid both exits and the cliff (so an episode should never terminate)
 
 You can check your answers by running Value Iteration on ```DiscountGrid``` with
 specified discount, noise, and living reward parameters as follows:
@@ -191,3 +195,5 @@ also point east, and the arrow in _(2,1)_ should point north.
 
 **Grading:** We will check that the desired policy is returned in each case. As
 in Exercise 2, we test your parameter settings using our value iteration agent.
+
+[Go back to Index of Handout](index.md)
