@@ -7,50 +7,50 @@ folder ```code``` of this repository.
 
 ### Files you will edit and you NEED to submit
 
-- [```valueIterationAgents.py```](../master/code/valueIterationAgents.py) - A
+- [```valueIterationAgents.py```](../code/valueIterationAgents.py) - A
 Value Iteration agent for solving known Markov Decision Processes (*MDPs*)
 
-- [```qlearningAgents.py```](../master/code/qlearningAgents.py) - Q-Learning agents
+- [```qlearningAgents.py```](../code/qlearningAgents.py) - Q-Learning agents
 for ```GridWorld```, ```Crawler``` and ```PacMan```.
 
-- [```analysis.py```](../master/code/analysis.py) - A file to put your answers to
+- [```analysis.py```](../code/analysis.py) - A file to put your answers to
 questions given in the handout.
 
 ### Files you SHOULD read but NOT edit
 
-- [```mdp.py```](../master/code/mdp.py) - Defines methods on general *MDPs*.
+- [```mdp.py```](../code/mdp.py) - Defines methods on general *MDPs*.
 
-- [```learningAgents.py```](../master/code/learningAgents.py) - Defines the base
+- [```learningAgents.py```](../code/learningAgents.py) - Defines the base
 classes ```ValueEstimationAgent``` and ```QLearningAgent```, which your agents
 will extend.
 
-- [```util.py```](../master/code/util.py) - Utilities, including ```util.Counter```,
+- [```util.py```](../code/util.py) - Utilities, including ```util.Counter```,
 which is particularly useful for Q-learners.
 
-- [```gridworld.py```](../master/code/gridworld.py) - The ```GridWorld``` implementation.
+- [```gridworld.py```](../code/gridworld.py) - The ```GridWorld``` implementation.
 
-- [```featureExtractors.py```](../master/code/featureExtractors.py) - Classes for
+- [```featureExtractors.py```](../code/featureExtractors.py) - Classes for
 extracting features on _(state,action)_ pairs. Used for the approximate Q-Learning
-agent (in [```qlearningAgents.py```](../master/code/qlearningAgents.py)).
+agent (in [```qlearningAgents.py```](../code/qlearningAgents.py)).
 
 ### Files you CAN ignore
 
-- [```environment.py```](../master/code/environment.py) - Abstract class for general
-reinforcement learning environments. Used by [```gridworld.py```](../master/code/gridworld.py).
+- [```environment.py```](../code/environment.py) - Abstract class for general
+reinforcement learning environments. Used by [```gridworld.py```](../code/gridworld.py).
 
-- [```graphicsGridworldDisplay.py```](../master/code/graphicsGridworldDisplay.py) -
+- [```graphicsGridworldDisplay.py```](../code/graphicsGridworldDisplay.py) -
  ```Gridworld``` graphical display.
 
-- [```graphicsUtils.py```](../master/code/graphicsUtils.py) - Assorted graphics
+- [```graphicsUtils.py```](../code/graphicsUtils.py) - Assorted graphics
 utilities.
 
-- [```textGridworldDisplay.py```](../master/code/textGridworldDisplay.py) - Plug-in
+- [```textGridworldDisplay.py```](../code/textGridworldDisplay.py) - Plug-in
 for the ```Gridworld``` text interface.
 
-- [```crawler.py```](../master/code/crawler.py) - The ```Crawler``` code and test
+- [```crawler.py```](../code/crawler.py) - The ```Crawler``` code and test
 harness. You will run this but not edit it.
 
-- [```graphicsCrawlerDisplay.py```](../master/code/graphicsCrawlerDisplay.py) - 
+- [```graphicsCrawlerDisplay.py```](../code/graphicsCrawlerDisplay.py) -
 Graphical display of the crawler robot.
 
 ### What to Submit
