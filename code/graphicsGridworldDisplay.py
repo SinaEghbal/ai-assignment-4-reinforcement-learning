@@ -2,26 +2,28 @@
 # ---------------------------
 # Licensing Information: Please do not distribute or publish solutions to this
 # project. You are free to use and extend these projects for educational
-# purposes. The Pacman AI projects were developed at UC Berkeley, primarily by
-# John DeNero (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
-# For more info, see http://inst.eecs.berkeley.edu/~cs188/sp09/pacman.html
+# purposes. The Pacman AI projects were originally developed at UC Berkeley,
+# primarily by John DeNero (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
+#
+# Further modifications and porting to Python 3 by Miquel Ramirez (miquel.ramirez@gmail.com),
+# March and April 2016
 
 import util
 from graphicsUtils import *
 
 class GraphicsGridworldDisplay:
-  
+
   def __init__(self, gridworld, size=120, speed=1.0):
     self.gridworld = gridworld
     self.size = size
     self.speed = speed
-    
+
   def start(self):
     setup(self.gridworld, size=self.size)
-  
+
   def pause(self):
     wait_for_keys()
-  
+
   def displayValues(self, agent, currentState = None, message = 'Agent Values'):
     values = util.Counter()
     policy = {}
@@ -52,7 +54,7 @@ class GraphicsGridworldDisplay:
     drawQValues(self.gridworld, qValues, currentState, message)
     sleep(0.05 / self.speed)
 
-BACKGROUND_COLOR = formatColor(0,0,0)    
+BACKGROUND_COLOR = formatColor(0,0,0)
 EDGE_COLOR = formatColor(1,1,1)
 OBSTACLE_COLOR = formatColor(0.5,0.5,0.5)
 TEXT_COLOR = formatColor(1,1,1)
@@ -74,7 +76,7 @@ def setup(gridworld, title = "Gridworld Display", size = 120):
   screen_width = (grid.width - 1) * GRID_SIZE + MARGIN * 2
   screen_height = (grid.height - 0.5) * GRID_SIZE + MARGIN * 2
 
-  begin_graphics(screen_width,    
+  begin_graphics(screen_width,
                  screen_height,
                  BACKGROUND_COLOR, title=title)
 
@@ -93,7 +95,7 @@ def drawNullValues(gridworld, currentState = None, message = ''):
         drawNullSquare(gridworld.grid, x, y, False, isExit, isCurrent)
   pos = to_screen(((grid.width - 1.0) / 2.0, - 0.8))
   text( pos, TEXT_COLOR, message, "Courier", -32, "bold", "c")
-  
+
 
 def drawValues(gridworld, values, policy, currentState = None, message = 'State Values'):
   grid = gridworld.grid
@@ -164,38 +166,38 @@ def drawQValues(gridworld, qValues, currentState = None, message = 'State-Action
 def blank():
   clear_screen()
 
-def drawNullSquare(grid,x, y, isObstacle, isTerminal, isCurrent):      
+def drawNullSquare(grid,x, y, isObstacle, isTerminal, isCurrent):
 
   square_color = getColor(0, -1, 1)
-  
+
   if isObstacle:
     square_color = OBSTACLE_COLOR
-    
+
   (screen_x, screen_y) = to_screen((x, y))
-  square( (screen_x, screen_y), 
-                 0.5* GRID_SIZE, 
+  square( (screen_x, screen_y),
+                 0.5* GRID_SIZE,
                  color = square_color,
                  filled = 1,
                  width = 1)
-  
-  square( (screen_x, screen_y), 
-                 0.5* GRID_SIZE, 
+
+  square( (screen_x, screen_y),
+                 0.5* GRID_SIZE,
                  color = EDGE_COLOR,
                  filled = 0,
                  width = 3)
-  
+
   if isTerminal and not isObstacle:
-    square( (screen_x, screen_y), 
-                 0.4* GRID_SIZE, 
+    square( (screen_x, screen_y),
+                 0.4* GRID_SIZE,
                  color = EDGE_COLOR,
                  filled = 0,
                  width = 2)
-    text( (screen_x, screen_y), 
-           TEXT_COLOR, 
-           str(grid[x][y]), 
+    text( (screen_x, screen_y),
+           TEXT_COLOR,
+           str(grid[x][y]),
            "Courier", -24, "bold", "c")
-      
-  
+
+
   text_color = TEXT_COLOR
 
   if not isObstacle and isCurrent:
@@ -203,33 +205,33 @@ def drawNullSquare(grid,x, y, isObstacle, isTerminal, isCurrent):
 
   # if not isObstacle:
   #   text( (screen_x, screen_y), text_color, valStr, "Courier", 24, "bold", "c")
-      
+
 def drawSquare(x, y, val, min, max, valStr, action, isObstacle, isTerminal, isCurrent):
 
   square_color = getColor(val, min, max)
-  
+
   if isObstacle:
     square_color = OBSTACLE_COLOR
-    
+
   (screen_x, screen_y) = to_screen((x, y))
-  square( (screen_x, screen_y), 
-                 0.5* GRID_SIZE, 
+  square( (screen_x, screen_y),
+                 0.5* GRID_SIZE,
                  color = square_color,
                  filled = 1,
                  width = 1)
-  square( (screen_x, screen_y), 
-                 0.5* GRID_SIZE, 
+  square( (screen_x, screen_y),
+                 0.5* GRID_SIZE,
                  color = EDGE_COLOR,
                  filled = 0,
                  width = 3)
   if isTerminal and not isObstacle:
-    square( (screen_x, screen_y), 
-                 0.4* GRID_SIZE, 
+    square( (screen_x, screen_y),
+                 0.4* GRID_SIZE,
                  color = EDGE_COLOR,
                  filled = 0,
                  width = 2)
-        
-    
+
+
   if action == 'north':
     polygon( [(screen_x, screen_y - 0.45*GRID_SIZE), (screen_x+0.05*GRID_SIZE, screen_y-0.40*GRID_SIZE), (screen_x-0.05*GRID_SIZE, screen_y-0.40*GRID_SIZE)], EDGE_COLOR, filled = 1, smoothed = False)
   if action == 'south':
@@ -238,8 +240,8 @@ def drawSquare(x, y, val, min, max, valStr, action, isObstacle, isTerminal, isCu
     polygon( [(screen_x-0.45*GRID_SIZE, screen_y), (screen_x-0.4*GRID_SIZE, screen_y+0.05*GRID_SIZE), (screen_x-0.4*GRID_SIZE, screen_y-0.05*GRID_SIZE)], EDGE_COLOR, filled = 1, smoothed = False)
   if action == 'east':
     polygon( [(screen_x+0.45*GRID_SIZE, screen_y), (screen_x+0.4*GRID_SIZE, screen_y+0.05*GRID_SIZE), (screen_x+0.4*GRID_SIZE, screen_y-0.05*GRID_SIZE)], EDGE_COLOR, filled = 1, smoothed = False)
-    
-  
+
+
   text_color = TEXT_COLOR
 
   if not isObstacle and isCurrent:
@@ -252,7 +254,7 @@ def drawSquare(x, y, val, min, max, valStr, action, isObstacle, isTerminal, isCu
 def drawSquareQ(x, y, qVals, minVal, maxVal, valStrs, bestActions, isCurrent):
 
   (screen_x, screen_y) = to_screen((x, y))
-  
+
   center = (screen_x, screen_y)
   nw = (screen_x-0.5*GRID_SIZE, screen_y-0.5*GRID_SIZE)
   ne = (screen_x+0.5*GRID_SIZE, screen_y-0.5*GRID_SIZE)
@@ -262,10 +264,10 @@ def drawSquareQ(x, y, qVals, minVal, maxVal, valStrs, bestActions, isCurrent):
   s = (screen_x, screen_y+0.5*GRID_SIZE-5)
   w = (screen_x-0.5*GRID_SIZE+5, screen_y)
   e = (screen_x+0.5*GRID_SIZE-5, screen_y)
-  
+
   actions = qVals.keys()
   for action in actions:
-    
+
     wedge_color = getColor(qVals[action], minVal, maxVal)
 
     if action == 'north':
@@ -280,9 +282,9 @@ def drawSquareQ(x, y, qVals, minVal, maxVal, valStrs, bestActions, isCurrent):
     if action == 'west':
       polygon( (center, nw, sw), wedge_color, filled = 1, smoothed = False)
       #text(w, text_color, valStr, "Courier", 8, "bold", "w")
-      
-  square( (screen_x, screen_y), 
-                 0.5* GRID_SIZE, 
+
+  square( (screen_x, screen_y),
+                 0.5* GRID_SIZE,
                  color = EDGE_COLOR,
                  filled = 0,
                  width = 3)
@@ -326,12 +328,12 @@ def square(pos, size, color, filled, width):
   x, y = pos
   dx, dy = size, size
   return polygon([(x - dx, y - dy), (x - dx, y + dy), (x + dx, y + dy), (x + dx, y - dy)], outlineColor=color, fillColor=color, filled=filled, width=width, smoothed=False)
-  
-  
+
+
 def to_screen(point):
   ( gamex, gamey ) = point
-  x = gamex*GRID_SIZE + MARGIN  
-  y = (GRID_HEIGHT - gamey - 1)*GRID_SIZE + MARGIN  
+  x = gamex*GRID_SIZE + MARGIN
+  y = (GRID_HEIGHT - gamey - 1)*GRID_SIZE + MARGIN
   return ( x, y )
 
 def to_grid(point):

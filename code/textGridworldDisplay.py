@@ -2,23 +2,26 @@
 # -----------------------
 # Licensing Information: Please do not distribute or publish solutions to this
 # project. You are free to use and extend these projects for educational
-# purposes. The Pacman AI projects were developed at UC Berkeley, primarily by
-# John DeNero (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
-# For more info, see http://inst.eecs.berkeley.edu/~cs188/sp09/pacman.html
+# purposes. The Pacman AI projects were originally developed at UC Berkeley,
+# primarily by John DeNero (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
+#
+# Further modifications and porting to Python 3 by Miquel Ramirez (miquel.ramirez@gmail.com),
+# March and April 2016
+
 
 import util
 
 class TextGridworldDisplay:
-  
+
   def __init__(self, gridworld):
     self.gridworld = gridworld
-  
+
   def start(self):
     pass
-  
+
   def pause(self):
     pass
-  
+
   def displayValues(self, agent, currentState = None, message = None):
     if message != None:
       print message
@@ -29,7 +32,7 @@ class TextGridworldDisplay:
       values[state] = agent.getValue(state)
       policy[state] = agent.getPolicy(state)
     prettyPrintValues(self.gridworld, values, policy, currentState)
-  
+
   def displayNullValues(self, agent, currentState = None, message = None):
     if message != None: print message
     prettyPrintNullValues(self.gridworld, currentState)
@@ -55,8 +58,8 @@ def prettyPrintValues(gridWorld, values, policy=None, currentState = None):
       value = values[state]
       action = None
       if policy != None and state in policy:
-        action = policy[state]          
-      actions = gridWorld.getPossibleActions(state)        
+        action = policy[state]
+      actions = gridWorld.getPossibleActions(state)
       if action not in actions and 'exit' in actions:
         action = 'exit'
       valString = None
@@ -67,18 +70,18 @@ def prettyPrintValues(gridWorld, values, policy=None, currentState = None):
         valString += ' '*maxLen
       if grid[x][y] == 'S':
         valString = '\n\nS: %.2f\n\n'  % value
-        valString += ' '*maxLen        
+        valString += ' '*maxLen
       if grid[x][y] == '#':
         valString = '\n#####\n#####\n#####\n'
         valString += ' '*maxLen
-      pieces = [valString]                
-      text = ("\n".join(pieces)).split('\n')        
+      pieces = [valString]
+      text = ("\n".join(pieces)).split('\n')
       if currentState == state:
         l = len(text[1])
         if l == 0:
           text[1] = '*'
         else:
-          text[1] = "|" + ' ' * int((l-1)/2-1) + '*' + ' ' * int((l)/2-1) + "|"       
+          text[1] = "|" + ' ' * int((l-1)/2-1) + '*' + ' ' * int((l)/2-1) + "|"
       if action == 'east':
         text[2] = '  ' + text[2]  + ' >'
       elif action == 'west':
@@ -114,7 +117,7 @@ def prettyPrintNullValues(gridWorld, currentState = None):
         action = None
         # if policy != None and state in policy:
         #   action = policy[state]
-        # 
+        #
         actions = gridWorld.getPossibleActions(state)
 
         if action not in actions and 'exit' in actions:
@@ -166,7 +169,7 @@ def prettyPrintNullValues(gridWorld, currentState = None):
     colLabels.insert(0,' ')
     finalRows = [colLabels] + newRows
     print indent(finalRows,separateRows=True,delim='|', prefix='|',postfix='|', justify='center',hasHeader=True)
-  
+
 def prettyPrintQValues(gridWorld, qValues, currentState=None):
     grid = gridWorld.grid
     maxLen = 11
@@ -180,7 +183,7 @@ def prettyPrintQValues(gridWorld, qValues, currentState=None):
           actions = [None]
         bestQ = max([qValues[(state, action)] for action in actions])
         bestActions = [action for action in actions if qValues[(state, action)] == bestQ]
-    
+
         # display cell
         qStrings = dict([(action, "%.2f" % qValues[(state, action)]) for action in actions])
         northString = ('north' in qStrings and qStrings['north']) or ' '
@@ -195,7 +198,7 @@ def prettyPrintQValues(gridWorld, qValues, currentState=None):
           eastString = ' '*(westLen-eastLen)+eastString
         if westLen < eastLen:
           westString = westString+' '*(eastLen-westLen)
-    
+
         if 'north' in bestActions:
           northString = '/'+northString+'\\'
         if 'south' in bestActions:
@@ -211,7 +214,7 @@ def prettyPrintQValues(gridWorld, qValues, currentState=None):
         if 'exit' in bestActions:
           exitString = '[ '+exitString+' ]'
 
-    
+
         ewString = westString + "     " + eastString
         if state == currentState:
           ewString = westString + "  *  " + eastString
@@ -219,12 +222,12 @@ def prettyPrintQValues(gridWorld, qValues, currentState=None):
           ewString = westString + "  S  " + eastString
         if state == currentState and state == gridWorld.getStartState():
           ewString = westString + " S:* " + eastString
-    
+
         text = [northString, "\n"+exitString, ewString, ' '*maxLen+"\n", southString]
-    
+
         if grid[x][y] == '#':
           text = ['', '\n#####\n#####\n#####', '']
-    
+
         newCell = "\n".join(text)
         newRow.append(newCell)
       newRows.append(newRow)
@@ -238,11 +241,11 @@ def prettyPrintQValues(gridWorld, qValues, currentState=None):
 
     print indent(finalRows,separateRows=True,delim='|',prefix='|',postfix='|', justify='center',hasHeader=True)
 
-def border(text):    
+def border(text):
   length = len(text)
   pieces = ['-' * (length+2), '|'+' ' * (length+2)+'|', ' | '+text+' | ', '|'+' ' * (length+2)+'|','-' * (length+2)]
   return '\n'.join(pieces)
-    
+
 # INDENTING CODE
 
 # Indenting code based on a post from George Sakkis
@@ -258,7 +261,7 @@ def indent(rows, hasHeader=False, headerChar='-', delim=' | ', justify='left',
        - headerChar: Character to be used for the row separator line
          (if hasHeader==True or separateRows==True).
        - delim: The column delimiter.
-       - justify: Determines how are data justified in their column. 
+       - justify: Determines how are data justified in their column.
          Valid values are 'left','right' and 'center'.
        - separateRows: True if rows are to be separated by a line
          of 'headerChar's.
@@ -290,23 +293,23 @@ def indent(rows, hasHeader=False, headerChar='-', delim=' | ', justify='left',
                 + postfix
         if separateRows or hasHeader: print >> output, rowSeparator; hasHeader=False
     return output.getvalue()
-    
+
 import math
 def wrap_always(text, width):
     """A simple word-wrap function that wraps text on exactly width characters.
        It doesn't split the text in words."""
     return '\n'.join([ text[width*i:width*(i+1)] \
                        for i in xrange(int(math.ceil(1.*len(text)/width))) ])
-    
-    
+
+
 # TEST OF DISPLAY CODE
-                                
+
 if __name__ == '__main__':
   import gridworld, util
 
   grid = gridworld.getCliffGrid3()
   print grid.getStates()
-  
+
   policy = dict([(state,'east') for state in grid.getStates()])
   values = util.Counter(dict([(state,1000.23) for state in grid.getStates()]))
   prettyPrintValues(grid, values, policy, currentState = (0,0))

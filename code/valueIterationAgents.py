@@ -2,9 +2,12 @@
 # -----------------------
 # Licensing Information: Please do not distribute or publish solutions to this
 # project. You are free to use and extend these projects for educational
-# purposes. The Pacman AI projects were developed at UC Berkeley, primarily by
-# John DeNero (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
-# For more info, see http://inst.eecs.berkeley.edu/~cs188/sp09/pacman.html
+# purposes. The Pacman AI projects were originally developed at UC Berkeley,
+# primarily by John DeNero (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
+#
+# Further modifications and porting to Python 3 by Miquel Ramirez (miquel.ramirez@gmail.com),
+# March and April 2016
+
 
 import mdp, util
 
@@ -24,7 +27,7 @@ class ValueIterationAgent(ValueEstimationAgent):
       Your value iteration agent should take an mdp on
       construction, run the indicated number of iterations
       and then act according to the resulting policy.
-    
+
       Some useful mdp methods you will use:
           mdp.getStates()
           mdp.getPossibleActions(state)
@@ -35,9 +38,9 @@ class ValueIterationAgent(ValueEstimationAgent):
     self.discount = discount
     self.iterations = iterations
     self.values = util.Counter() # A Counter is a dict with default 0
-     
+
     "*** YOUR CODE HERE ***"
-    
+
   def getValue(self, state):
     """
       Return the value of the state (computed in __init__).
@@ -70,4 +73,3 @@ class ValueIterationAgent(ValueEstimationAgent):
   def getAction(self, state):
     "Returns the policy at the state (no exploration)."
     return self.getPolicy(state)
-  
