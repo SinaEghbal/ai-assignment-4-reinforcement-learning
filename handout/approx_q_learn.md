@@ -1,76 +1,173 @@
-<h3>Approximate Q-learning and State Abstraction</h3>
+## Approximate Q-learning and State Abstraction (2 Exercises, 20 marks overall)
 
-<p><strong><em>Question 8 (<b>1</b> points) </em></strong> Time to play some Pacman! Pacman will play games in two phases.
-In the first phase, <em>training</em>, Pacman will begin to learn about the values of positions and actions.
-Because it takes a very long time to learn accurate Q-values even for tiny grids, Pacman's training games
-run in quiet mode by default, with no GUI (or console) display.  Once Pacman's training is complete,
-he will enter <em>testing</em> mode.  When testing, Pacman's <code>self.epsilon</code>
-and <code>self.alpha</code> will be set to 0.0, effectively stopping Q-learning and disabling exploration, in order to allow Pacman to exploit his learned policy.  Test games are shown in the GUI by default.  Without any code changes you should be able to run Q-learning Pacman for very tiny grids as follows:
+## Exercise 8 (5 Marks)
 
-<pre>python pacman.py -p PacmanQAgent -x 2000 -n 2010 -l smallGrid </pre>
+Time to play some PacMan! Pacman will play games in two phases. In the first
+phase, _training_, PacMan will begin to learn about the values of positions and actions.
+Because it takes a very long time to learn accurate Q-values even for tiny grids,
+PacMan's training games run in quiet mode by default, with no GUI (or console)
+display.  Once Pacman's training is complete, he will enter _testing_ mode.  
+When testing, Pacman's epsilon greedy policy parameter ```self.epsilon``` and
+step-size ```self.alpha``` will be both set to 0.0, effectively stopping
+Q-learning and disabling exploration, in order to allow PacMan to **exploit** his
+learned policy. Test games are shown in the GUI by default.  Without any code
+changes you should be able to run Q-learning Pacman for very tiny grids as follows:
 
-Note that <code>PacmanQAgent</code> is already defined for you in terms of the <code>QLearningAgent</code> you've already written.   <code>PacmanQAgent</code> is only different in that it has default learning parameters that are more effective for the Pacman problem (<code>epsilon=0.05, alpha=0.2, gamma=0.8</code>).  You will receive full credit for this question if the command above works without exceptions and your agent wins at least 80% of the time. The autograder will run 100 test games after the 2000 training games.
+```
+python pacman.py -p PacmanQAgent -x 2000 -n 2010 -l smallGrid
+```
 
-<p><em>Hint:</em> If your <code>QLearningAgent</code> works for <code><a href="docs/gridworld.html">gridworld.py</a></code> and <code><a href="docs/crawler.html">crawler.py</a></code> but does not seem to be learning a good policy for Pacman on <code>smallGrid</code>, it may be because your <code>getAction</code> and/or <code>getPolicy</code> methods do not in some cases properly consider unseen actions.  In particular, because unseen actions have by definition a Q-value of zero, if all of the actions that <em>have</em> been seen have negative Q-values, an unseen action may be optimal. Beware of the argmax function from util.Counter!
+Note that the class ```PacmanQAgent``` is already defined for you in terms of
+the class ```QLearningAgent``` you've already written.  ```PacmanQAgent```
+is only different in that it has default learning parameters that are more
+effective for the Pacman problem (```epsilon=0.05, alpha=0.2, gamma=0.8```).  
+You will receive full credit for this question if the command above works
+without exceptions and your agent wins at least 80% of the time. The
+automated tester will run 100 test games after the 2000 training games.
 
-<p><em>Note:</em> If you want to experiment with learning parameters, you can use the option <code>-a</code>, for example <code>-a&nbsp;epsilon=0.1,alpha=0.3,gamma=0.7</code>.  These values will then be accessible as <code>self.epsilon, self.gamma</code> and <code>self.alpha</code> inside the agent.
+**Hint:** If your ```QLearningAgent```= works for [```gridworld.py```](../code/gridworld.py)
+and [```crawler.py```](../code/crawler.py) but does not seem to be learning a
+good policy for Pacman on ```smallGrid```, it may be because your ```getAction```
+and/or ```getPolicy``` methods do not in some cases properly consider unseen
+actions.  In particular, because unseen actions have by definition a Q-value of
+zero, if all of the actions that **have** been seen have negative Q-values, an
+unseen action may be optimal. Beware of the argmax function from ```util.Counter```!
 
-<p><em>Note:</em> While a total of 2010 games will be played, the first 2000 games will not be displayed because of the option <code>-x 2000</code>, which designates the first 2000 games for training (no output).  Thus, you will only see Pacman play the last 10 of these games.  The number of training games is also passed to your agent as the option <code>numTraining</code>.
+**Note:** If you want to experiment with learning parameters, you can use the option
+option ```-a```, for example
 
-<p><em>Note:</em> If you want to watch 10 training games to see what's going on, use the command:
+```
+-a epsilon=0.1,alpha=0.3,gamma=0.7
+```  
 
-<pre>python pacman.py -p PacmanQAgent -n 10 -l smallGrid -a numTraining=10</pre>
+These values will then be accessible as ```self.epsilon, self.gamma```
+and ```self.alpha``` inside the agent.
 
-<br><br>
-During training, you will see output every 100 games with statistics about how Pacman is faring. Epsilon is positive during training, so Pacman will play poorly even after having learned a good policy: this is because he occasionally makes a random exploratory move into a ghost. As a benchmark, it should take about 1,000 games  before Pacman's rewards for a 100 episode segment becomes positive, reflecting that he's started winning more than losing. By the end of training, it should remain positive and be fairly high (between 100 and 350).
+**Note:** While a total of 2010 games will be played, the first 2000 games
+will not be displayed because of the option <code>-x 2000</code>, which designates
+the first 2000 games for training (no output).  Thus, you will only see Pacman
+play the last 10 of these games.  The number of training games is also passed
+to your agent as the option ```numTraining```.
 
-<p>Make sure you understand what is happening here: the MDP state is the <em>exact</em> board configuration facing Pacman, with the now complex transitions describing an entire ply of change to that state.  The intermediate game configurations in which Pacman has moved but the ghosts have not replied are <em>not</em> MDP states, but are bundled in to the transitions.
+**Note:** If you want to watch 10 training games to see what's going on, use the command:
 
-<p>Once Pacman is done training, he should win very reliably in test games (at least 90% of the time), since now he is exploiting his learned policy.
+```
+python pacman.py -p PacmanQAgent -n 10 -l smallGrid -a numTraining=10
+```
+During training, you will see output every 100 games with statistics about how
+Pacman is faring. Epsilon is positive during training, so Pacman will play poorly
+even after having learned a good policy: this is because he occasionally makes a
+random exploratory move into a ghost. As a benchmark, it should take about 1,000
+games  before Pacman's rewards for a 100 episode segment becomes positive, reflecting
+that he's started winning more than losing. By the end of training, it should
+remain positive and be fairly high (between 100 and 350).
 
-<p>However, you will find that training the same agent on the seemingly simple <a href="layouts/mediumGrid.lay"><code>mediumGrid</code></a> does not work well. In our implementation, Pacman's average training rewards remain negative throughout training.  At test time, he plays badly, probably losing all of his test games.  Training will also take a long time, despite its ineffectiveness.
+Make sure you understand what is happening here: the MDP state is the **exact**
+board configuration facing Pacman, with the now complex transitions describing
+an entire ply of change to that state.  The intermediate game configurations in
+which Pacman has moved but the ghosts have not replied are **not** _MDP_ states,
+but are bundled in to the transitions. This technique is referred to as
+_afterstates_ and is discussed in
+[Sutton & Barto's book](https://webdocs.cs.ualberta.ca/~sutton/book/ebook/node68.html).
 
-<p>Pacman fails to win on larger layouts because each board configuration is a separate state with separate Q-values.  He has no way to generalize that running into a ghost is bad for all positions.  Obviously, this approach will not scale.
+Once Pacman is done training, he should win very reliably in test games
+(at least 90% of the time), since now he is exploiting his learned policy.
 
-<p><strong><em>Question 9 (<b>3</b> points) </em></strong>
-Implement an approximate Q-learning agent that learns weights for features of states, where many states might share the same features.  Write your implementation in <code>ApproximateQAgent</code> class in <code><a href="docs/qlearningAgents.html">qlearningAgents.py</a></code>, which is a subclass of <code>PacmanQAgent</code>.
-<!--Most of why Pacman fails for larger grids in the last problem is that there are many irrelevant details in each state, and so the same lessons must be learned many times.   However, just as with minimax, we can compute (approximate) values based on aspects of the state.   For example, if a ghost is about to eat Pacman, it's irrelevant which subset of the food in the grid is present, so we should be able to learn much about ghost fear from the ghost positions alone.   Alternatively, if a ghost is sufficiently far away it doesn't matter much exactly <em>how</em> far away or exactly where it is.  -->
+However, you will find that training the same agent on the seemingly simple
+[```mediumGrid```](../code/layouts/mediumGrid.lay)
+does not work well. In our implementation, Pacman's average training rewards
+remain negative throughout training.  At test time, he plays badly, probably
+losing all of his test games.  Training will also take a long time, despite
+its ineffectiveness.
 
-<p><em>Note:</em>  Approximate Q-learning assumes the existence of a feature function f(s,a) over state and action pairs, which yields a vector f<sub>1</sub>(s,a) .. f<sub>i</sub>(s,a) .. f<sub>n</sub>(s,a) of feature values. We provide feature functions for you in <code><a href="docs/featureExtractors.html">featureExtractors.py</a></code>. Feature vectors are <code>util.Counter</code> (like a dictionary) objects containing the non-zero pairs of features and values; all omitted features have value zero.
+Pacman fails to win on larger layouts because each board configuration is a
+separate state with separate Q-values.  He has no way to generalize that
+running into a ghost is bad for all positions.  Obviously, this approach
+will not scale.
 
-<p>The approximate Q-function takes the following form
+### Exercise 9 (15 marks)
+
+Implement an approximate Q-learning agent that learns weights for features of
+states, where many states might share the same features.  Write your implementation
+in the class ```ApproximateQAgent``` in [```qlearningAgents.py```](../code/qlearningAgents.py),
+which is a subclass of ```PacmanQAgent```.
+
+The reasons why the exact PacmanQAgent fails for larger grids in the last problem
+are complex to analyze and understand. One of the most intuitive observations that
+can be made is that there are many irrelevant details in each state, and so the
+same lessons must be learned many times.   However, just as with MiniMax, we can
+compute (approximate) values based on aspects of the state.  For example, if a
+ghost is about to eat Pacman, it's irrelevant which subset of the food in the
+grid is present, so we should be able to learn much about ghost fear from the
+ghost positions alone. Alternatively, if a ghost is sufficiently far away it
+doesn't matter much exactly **how** far away or exactly where it is.  
+
+**Note:**  Approximate Q-learning assumes the existence of a feature function
+f(s,a) over state and action pairs, which yields a vector
+f<sub>1</sub>(s,a) .. f<sub>i</sub>(s,a) .. f<sub>n</sub>(s,a) of feature values.
+We provide feature functions for you in
+[```featureExtractors.py```](../code/featureExtractors.py). Feature vectors are
+instances of ```util.Counter```, dictionary-like objects containing the non-zero
+pairs of features and values; all omitted features have value zero.
+
+The approximate Q-function takes the following form
+
 <center>
-	<img  src="define-eqn1.png">
+	<img  src="images/define-eqn1.png">
 </center>
-<br>
-where each weight w<sub>i</sub> is associated with a particular feature f<sub>i</sub>(s,a). In your code, you should implement the weight vector as a dictionary mapping features (which the feature extractors will return) to weight values. You will update your weight vectors similarly to how you updated Q-values:
+
+where each weight w<sub>i</sub> is associated with a particular feature f<sub>i</sub>(s,a).
+In your code, you should implement the weight vector as a dictionary mapping
+features (which the feature extractors will return) to weight values. You will
+update your weight vectors similarly to how you updated Q-values:
+
 <center>
 	<br>
-	<img  src="define-eqn2.png">
+	<img  src="images/define-eqn2.png">
 </center>
-<br>
-Note that the <emph>correction</emph> term is the same as in normal Q-learning.
 
-<p>By default, <code>ApproximateQAgent</code> uses the <code>IdentityExtractor</code>, which assigns a single feature to every <code>(state,action)</code> pair. With this feature extractor, your approximate Q-learning agent should work identically to <code>PacmanQAgent</code>.  You can test this with the following command:
+Note that the **correction** term is the same as in normal Q-learning.
 
-<pre>python pacman.py -p ApproximateQAgent -x 2000 -n 2010 -l smallGrid </pre>
+By default, ```ApproximateQAgent``` uses class ```IdentityExtractor```,
+whose instances assign a single feature to every _(state,action)_ pair.
+With this feature extractor, your approximate Q-learning agent should work
+identically to ```PacmanQAgent```.  You can test this with the following command:
 
-<p><em>Important:</em> <code>ApproximateQAgent</code> is a subclass of  <code>QLearningAgent</code>, and it therefore shares several methods like <code>getAction</code>.  Make sure that your methods in <code>QLearningAgent</code> call <code>getQValue</code> instead of accessing Q-values directly, so that when you override <code>getQValue</code> in your approximate agent, the new approximate q-values are used to compute actions.
+```
+python pacman.py -p ApproximateQAgent -x 2000 -n 2010 -l smallGrid
+```
 
-<p>Once you're confident that your approximate learner works correctly with the identity features, run your approximate Q-learning agent with our custom feature extractor, which can learn to win with ease:
+**Important:** ```ApproximateQAgent``` is a subclass of  ```QLearningAgent```,
+and it therefore shares several methods like ```getAction```.  Make sure that
+your methods in ```QLearningAgent``` call ```getQValue``` instead of accessing
+Q-values directly, so that when you override ```getQValue``` in your approximate
+agent, the new approximate q-values are used to compute actions.
 
-<pre>python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 60 -l mediumGrid </pre>
+<Once you're confident that your approximate learner works correctly with the
+identity features, run your approximate Q-learning agent with our custom
+feature extractor, which can learn to win with ease:
 
-Even much larger layouts should be no problem for your <code>ApproximateQAgent</code>. (<em>warning</em>: this may take a few minutes to train)
+```
+python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 60 -l mediumGrid
+```
 
-<pre>python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 60 -l mediumClassic </pre>
+Even much larger layouts should be no problem for your ```ApproximateQAgent```.
+(**warning**: this may take a few minutes to train)
 
-<p>If you have no errors, your approximate Q-learning agent should win almost every time with these simple features, even with only 50 training games.
+```
+python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 60 -l mediumClassic
+```
 
+If you have no errors, your approximate Q-learning agent should win almost every
+time with these simple features, even with only 50 training games.
 
-<p><em>Grading:</em> We will run your agent on the <code>mediumGrid</code> layout 100 times using a fixed random seed. You will receive 1 point if your agent wins more than 25% of its games, 2 points if it wins more than 50% of its games, and 3 points if it wins more than 75% of its games. You can try your agent out under these conditions with
+**Grading:** We will run your agent on the ```mediumGrid``` layout 100 times using
+a fixed random seed. You will receive 5 marks if your agent wins more than 25% of
+its games, 10 marks if it wins more than 50% of its games, and 15 marks if
+it wins more than 75% of its games. You can try your agent out under these conditions with
 
-<pre>python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 150 -l mediumGrid -q -f</pre>
+```
+python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 150 -l mediumGrid -q -f
+```
 
-
-<p><i>Congratulations!  You have a learning Pacman agent!</i>
+_Congratulations!  You have a learning Pacman agent!_
