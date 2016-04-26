@@ -2,10 +2,9 @@
 
 ## If you're forking this repo, make sure your fork visibility is set to PRIVATE!!!
 
-## Constraint Satisfaction Problems
+## Reinforcement Learning
 
-
-This is the GitLab repository for COMP3620/6320 Assignment 2. Please follow the instructions
+This is the GitLab repository for COMP3620/6320 Assignment 4. Please follow the instructions
 below:
 
 1. Mark this project as favorite by clicking on the "star" button above. In this way you'll be notified
