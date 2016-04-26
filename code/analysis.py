@@ -8,6 +8,12 @@
 # Further modifications and porting to Python 3 by Miquel Ramirez (miquel.ramirez@gmail.com),
 # March and April 2016
 
+""" Student Details
+    Student Name:
+    Student number:
+    Date:
+"""
+
 ######################
 # ANALYSIS QUESTIONS #
 ######################
@@ -16,8 +22,8 @@
 # value iteration.
 
 def question2():
-  answerDiscount = 0.9
-  answerNoise = 0.2
+  answerDiscount = None
+  answerNoise = None
   return answerDiscount, answerNoise
 
 def question3a():
@@ -62,8 +68,8 @@ def question6():
   # If not possible, return 'NOT POSSIBLE'
 
 if __name__ == '__main__':
-  print 'Answers to analysis questions:'
+  print('Answers to analysis questions:')
   import analysis
   for q in [q for q in dir(analysis) if q.startswith('question')]:
     response = getattr(analysis, q)()
-    print '  Question %s:\t%s' % (q, str(response))
+    print('  Question %s:\t%s' % (q, str(response)))

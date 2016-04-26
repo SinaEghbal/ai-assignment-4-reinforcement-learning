@@ -159,9 +159,9 @@ class CrawlingRobot:
         """
         oldArmAngle = self.armAngle
         if newArmAngle > self.maxArmAngle:
-            raise 'Crawling Robot: Arm Raised too high. Careful!'
+            raise RuntimeError('Crawling Robot: Arm Raised too high. Careful!')
         if newArmAngle < self.minArmAngle:
-            raise 'Crawling Robot: Arm Raised too low. Careful!'
+            raise RuntimeError('Crawling Robot: Arm Raised too low. Careful!')
         disp = self.displacement(self.armAngle, self.handAngle,
                                   newArmAngle, self.handAngle)
         curXPos = self.robotPos[0]
@@ -182,9 +182,9 @@ class CrawlingRobot:
         oldHandAngle = self.handAngle
 
         if newHandAngle > self.maxHandAngle:
-            raise 'Crawling Robot: Hand Raised too high. Careful!'
+            raise RuntimeError('Crawling Robot: Hand Raised too high. Careful!')
         if newHandAngle < self.minHandAngle:
-            raise 'Crawling Robot: Hand Raised too low. Careful!'
+            raise RuntimeError('Crawling Robot: Hand Raised too low. Careful!')
         disp = self.displacement(self.armAngle, self.handAngle, self.armAngle, newHandAngle)
         curXPos = self.robotPos[0]
         self.robotPos = (curXPos+disp, self.robotPos[1])
@@ -253,7 +253,7 @@ class CrawlingRobot:
                 return 0.0
             return -(x - y * (xOld-x)/(yOld-y)) + math.sqrt(xOld*xOld + yOld*yOld)
 
-        raise 'Never Should See This!'
+        raise RuntimeError('Never Should See This!')
 
     def draw(self, stepCount, stepDelay):
         x1, y1 = self.getRobotPosition()
@@ -261,7 +261,7 @@ class CrawlingRobot:
 
         ## Check Lower Still on the ground
         if y1 != self.groundY:
-            raise 'Flying Robot!!'
+            raise RuntimeError('Flying Robot!!')
 
         rotationAngle = self.getRotationAngle()
         cosRot, sinRot = self.__getCosAndSin(rotationAngle)

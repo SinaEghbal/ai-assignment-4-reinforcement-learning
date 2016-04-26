@@ -8,6 +8,11 @@
 # Further modifications and porting to Python 3 by Miquel Ramirez (miquel.ramirez@gmail.com),
 # March and April 2016
 
+""" Student Details
+    Student Name:
+    Student number:
+    Date:
+"""
 
 from game import *
 from learningAgents import ReinforcementAgent
