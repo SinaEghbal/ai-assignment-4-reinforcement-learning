@@ -17,116 +17,116 @@ import random
 
 class CrawlingRobotEnvironment(environment.Environment):
 
-   def __init__(self, crawlingRobot):
+    def __init__(self, crawlingRobot):
 
-       self.crawlingRobot = crawlingRobot
+        self.crawlingRobot = crawlingRobot
 
-       # The state is of the form (armAngle, handAngle)
-       # where the angles are bucket numbers, not actual
-       # degree measurements
-       self.state = None
+        # The state is of the form (armAngle, handAngle)
+        # where the angles are bucket numbers, not actual
+        # degree measurements
+        self.state = None
 
-       self.nArmStates = 9
-       self.nHandStates = 13
+        self.nArmStates = 9
+        self.nHandStates = 13
 
-       # create a list of arm buckets and hand buckets to
-       # discretize the state space
-       minArmAngle,maxArmAngle = self.crawlingRobot.getMinAndMaxArmAngles()
-       minHandAngle,maxHandAngle = self.crawlingRobot.getMinAndMaxHandAngles()
-       armIncrement = (maxArmAngle - minArmAngle) / (self.nArmStates-1)
-       handIncrement = (maxHandAngle - minHandAngle) / (self.nHandStates-1)
-       self.armBuckets = [minArmAngle+(armIncrement*i) \
-          for i in range(self.nArmStates)]
-       self.handBuckets = [minHandAngle+(handIncrement*i) \
-        for i in range(self.nHandStates)]
+        # create a list of arm buckets and hand buckets to
+        # discretize the state space
+        minArmAngle,maxArmAngle = self.crawlingRobot.getMinAndMaxArmAngles()
+        minHandAngle,maxHandAngle = self.crawlingRobot.getMinAndMaxHandAngles()
+        armIncrement = (maxArmAngle - minArmAngle) / (self.nArmStates-1)
+        handIncrement = (maxHandAngle - minHandAngle) / (self.nHandStates-1)
+        self.armBuckets = [minArmAngle+(armIncrement*i) \
+           for i in range(self.nArmStates)]
+        self.handBuckets = [minHandAngle+(handIncrement*i) \
+         for i in range(self.nHandStates)]
 
-       # Reset
-       self.reset()
+        # Reset
+        self.reset()
 
-   def getCurrentState(self):
-       """
-         Return the current state
-         of the crawling robot
-       """
-       return self.state
+    def getCurrentState(self):
+        """
+          Return the current state
+          of the crawling robot
+        """
+        return self.state
 
-   def getPossibleActions(self, state):
-       """
-         Returns possible actions
-         for the states in the
-         current state
-       """
+    def getPossibleActions(self, state):
+        """
+          Returns possible actions
+          for the states in the
+          current state
+        """
 
-       actions = list()
+        actions = list()
 
-       currArmBucket,currHandBucket = state
-       if currArmBucket > 0: actions.append('arm-down')
-       if currArmBucket < self.nArmStates-1: actions.append('arm-up')
-       if currHandBucket > 0: actions.append('hand-down')
-       if currHandBucket < self.nHandStates-1: actions.append('hand-up')
+        currArmBucket,currHandBucket = state
+        if currArmBucket > 0: actions.append('arm-down')
+        if currArmBucket < self.nArmStates-1: actions.append('arm-up')
+        if currHandBucket > 0: actions.append('hand-down')
+        if currHandBucket < self.nHandStates-1: actions.append('hand-up')
 
-       return actions
+        return actions
 
-   def doAction(self, action):
-       """
-         Perform the action and update
-         the current state of the Environment
-         and return the reward for the
-         current state, the next state
-         and the taken action.
+    def doAction(self, action):
+        """
+          Perform the action and update
+          the current state of the Environment
+          and return the reward for the
+          current state, the next state
+          and the taken action.
 
-         Returns:
-           nextState, reward
-       """
-       nextState, reward =  None, None
+          Returns:
+            nextState, reward
+        """
+        nextState, reward =  None, None
 
-       oldX,oldY = self.crawlingRobot.getRobotPosition()
+        oldX,oldY = self.crawlingRobot.getRobotPosition()
 
-       armBucket,handBucket = self.state
-       armAngle,handAngle = self.crawlingRobot.getAngles()
-       if action == 'arm-up':
-         newArmAngle = self.armBuckets[armBucket+1]
-         self.crawlingRobot.moveArm(newArmAngle)
-         nextState = (armBucket+1,handBucket)
-       if action == 'arm-down':
-         newArmAngle = self.armBuckets[armBucket-1]
-         self.crawlingRobot.moveArm(newArmAngle)
-         nextState = (armBucket-1,handBucket)
-       if action == 'hand-up':
-         newHandAngle = self.handBuckets[handBucket+1]
-         self.crawlingRobot.moveHand(newHandAngle)
-         nextState = (armBucket,handBucket+1)
-       if action == 'hand-down':
-         newHandAngle = self.handBuckets[handBucket-1]
-         self.crawlingRobot.moveHand(newHandAngle)
-         nextState = (armBucket,handBucket-1)
+        armBucket,handBucket = self.state
+        armAngle,handAngle = self.crawlingRobot.getAngles()
+        if action == 'arm-up':
+            newArmAngle = self.armBuckets[armBucket+1]
+            self.crawlingRobot.moveArm(newArmAngle)
+            nextState = (armBucket+1,handBucket)
+        if action == 'arm-down':
+            newArmAngle = self.armBuckets[armBucket-1]
+            self.crawlingRobot.moveArm(newArmAngle)
+            nextState = (armBucket-1,handBucket)
+        if action == 'hand-up':
+            newHandAngle = self.handBuckets[handBucket+1]
+            self.crawlingRobot.moveHand(newHandAngle)
+            nextState = (armBucket,handBucket+1)
+        if action == 'hand-down':
+            newHandAngle = self.handBuckets[handBucket-1]
+            self.crawlingRobot.moveHand(newHandAngle)
+            nextState = (armBucket,handBucket-1)
 
-       newX,newY = self.crawlingRobot.getRobotPosition()
+        newX,newY = self.crawlingRobot.getRobotPosition()
 
-       # a simple reward function
-       reward = newX - oldX
+        # a simple reward function
+        reward = newX - oldX
 
-       self.state = nextState
-       return nextState, reward
+        self.state = nextState
+        return nextState, reward
 
 
-   def reset(self):
-       """
-        Resets the Environment to the initial state
-       """
-       ## Initialize the state to be the middle
-       ## value for each parameter e.g. if there are 13 and 19
-       ## buckets for the arm and hand parameters, then the intial
-       ## state should be (6,9)
-       ##
-       ## Also call self.crawlingRobot.setAngles()
-       ## to the initial arm and hand angle
+    def reset(self):
+        """
+         Resets the Environment to the initial state
+        """
+        ## Initialize the state to be the middle
+        ## value for each parameter e.g. if there are 13 and 19
+        ## buckets for the arm and hand parameters, then the intial
+        ## state should be (6,9)
+        ##
+        ## Also call self.crawlingRobot.setAngles()
+        ## to the initial arm and hand angle
 
-       armState = self.nArmStates/2
-       handState = self.nHandStates/2
-       self.state = armState,handState
-       self.crawlingRobot.setAngles(self.armBuckets[armState],self.handBuckets[handState])
-       self.crawlingRobot.positions = [20,self.crawlingRobot.getRobotPosition()[0]]
+        armState = self.nArmStates/2
+        handState = self.nHandStates/2
+        self.state = armState,handState
+        self.crawlingRobot.setAngles(self.armBuckets[armState],self.handBuckets[handState])
+        self.crawlingRobot.positions = [20,self.crawlingRobot.getRobotPosition()[0]]
 
 
 class CrawlingRobot:
@@ -376,5 +376,5 @@ class CrawlingRobot:
 
 
 if __name__ == '__main__':
-  from graphicsCrawlerDisplay import *
-  run()
+    from graphicsCrawlerDisplay import *
+    run()

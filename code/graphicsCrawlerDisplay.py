@@ -183,13 +183,13 @@ class Application:
 
 
     def exit(self):
-      self.running = False
-      for i in range(5):
-        if not self.stopped:
+        self.running = False
+        for i in range(5):
+            if not self.stopped:
 #          print "Waiting for thread to die..."
-          time.sleep(0.1)
-      self.win.destroy()
-      sys.exit(0)
+                time.sleep(0.1)
+        self.win.destroy()
+        sys.exit(0)
 
     def step(self):
 
@@ -250,10 +250,10 @@ class Application:
                 if not self.learner.seenState(state):
                     argMax = 'unseen'
                 else:
-                     for action in ('kickLeft','kickRight','doNothing'):
-                         qVal = self.learner.getQValue(state, action)
-                         if max == None or qVal > max:
-                             max, argMax = qVal, action
+                    for action in ('kickLeft','kickRight','doNothing'):
+                        qVal = self.learner.getQValue(state, action)
+                        if max == None or qVal > max:
+                            max, argMax = qVal, action
                 if argMax != 'unseen':
                     if argMax == 'kickLeft':
                         color = 'blue'
@@ -273,18 +273,18 @@ class Application:
         self.stepCount = 0
         self.learner.startEpisode()
         while True:
-          minSleep = .01
-          tm = max(minSleep, self.tickTime)
-          time.sleep(tm)
-          self.stepsToSkip = int(tm / self.tickTime) - 1
+            minSleep = .01
+            tm = max(minSleep, self.tickTime)
+            time.sleep(tm)
+            self.stepsToSkip = int(tm / self.tickTime) - 1
 
-          if not self.running:
-            self.stopped = True
-            return
-          for i in range(self.stepsToSkip):
-              self.step()
-          self.stepsToSkip = 0
-          self.step()
+            if not self.running:
+                self.stopped = True
+                return
+            for i in range(self.stepsToSkip):
+                self.step()
+            self.stepsToSkip = 0
+            self.step()
 #          self.robot.draw()
         self.learner.stopEpisode()
 
@@ -296,19 +296,19 @@ class Application:
 
 
 def run():
-  global root
-  root = tkinter.Tk()
-  root.title( 'Crawler GUI' )
-  root.resizable( 0, 0 )
+    global root
+    root = tkinter.Tk()
+    root.title( 'Crawler GUI' )
+    root.resizable( 0, 0 )
 
 #  root.mainloop()
 
 
-  app = Application(root)
-  def update_gui():
-    app.robot.draw(app.stepCount, app.tickTime)
-    root.after(10, update_gui)
-  update_gui()
+    app = Application(root)
+    def update_gui():
+        app.robot.draw(app.stepCount, app.tickTime)
+        root.after(10, update_gui)
+    update_gui()
 
-  root.protocol( 'WM_DELETE_WINDOW', app.exit)
-  app.start()
+    root.protocol( 'WM_DELETE_WINDOW', app.exit)
+    app.start()
