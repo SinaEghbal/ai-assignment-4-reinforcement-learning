@@ -125,7 +125,7 @@ class CrawlingRobotEnvironment(environment.Environment):
         armState = self.nArmStates/2
         handState = self.nHandStates/2
         self.state = armState,handState
-        self.crawlingRobot.setAngles(self.armBuckets[armState],self.handBuckets[handState])
+        self.crawlingRobot.setAngles(self.armBuckets[int(armState)],self.handBuckets[int(handState)])
         self.crawlingRobot.positions = [20,self.crawlingRobot.getRobotPosition()[0]]
 
 
