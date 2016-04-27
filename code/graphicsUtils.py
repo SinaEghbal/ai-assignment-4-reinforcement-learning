@@ -308,8 +308,8 @@ def wait_for_keys():
     return keys
 
 def remove_from_screen(x,
-                       d_o_e=tkinter.tkinter.dooneevent,
-                       d_w=tkinter.tkinter.DONT_WAIT):
+                       d_o_e=do_one_event_wrapper,
+                       d_w=tkinter._tkinter.DONT_WAIT):
     _canvas.delete(x)
     d_o_e(d_w)
 
@@ -320,8 +320,8 @@ def _adjust_coords(coord_list, x, y):
     return coord_list
 
 def move_to(object, x, y=None,
-            d_o_e=tkinter.tkinter.dooneevent,
-            d_w=tkinter.tkinter.DONT_WAIT):
+            d_o_e=do_one_event_wrapper,
+            d_w=tkinter._tkinter.DONT_WAIT):
     if y is None:
         try: x, y = x
         except: raise  Exception('incomprehensible coordinates')
@@ -342,8 +342,8 @@ def move_to(object, x, y=None,
     d_o_e(d_w)
 
 def move_by(object, x, y=None,
-            d_o_e=tkinter.tkinter.dooneevent,
-            d_w=tkinter.tkinter.DONT_WAIT):
+            d_o_e=do_one_event_wrapper,
+            d_w=tkinter._tkinter.DONT_WAIT):
     if y is None:
         try: x, y = x
         except: raise Exception('incomprehensible coordinates')
