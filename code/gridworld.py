@@ -408,7 +408,7 @@ def parseOptions():
                          dest='quiet',default=False,
                          help='Skip display of any learning episodes')
     optParser.add_option('-s', '--speed',action='store', metavar="S", type=float,
-                         dest='speed',default=1.0,
+                         dest='speed',default=0.1,
                          help='Speed of animation, S > 1.0 is faster, 0.0 < S < 1.0 is slower (default %default)')
     optParser.add_option('-m', '--manual',action='store_true',
                          dest='manual',default=False,
