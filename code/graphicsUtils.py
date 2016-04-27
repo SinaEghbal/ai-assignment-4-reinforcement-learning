@@ -18,7 +18,7 @@ import tkinter
 
 _Windows = sys.platform == 'win32'  # True if on Win95/98/NT
 
-_root_window = None      # The root window for graphics output
+_root_window = tkinter.Tk()      # The root window for graphics output
 _canvas = None      # The canvas which holds graphics
 _canvas_xs = None      # Size of canvas object
 _canvas_ys = None
@@ -283,8 +283,10 @@ def _clear_keys(event=None):
     _keyswaiting = {}
     _got_release = None
 
-def keys_pressed(d_o_e=tkinter.tkinter.dooneevent,
-                 d_w=tkinter.tkinter.DONT_WAIT):
+do_one_event_wrapper = lambda arg : _root_window.dooneevent(arg)
+
+def keys_pressed(d_o_e=do_one_event_wrapper,
+                 d_w=tkinter._tkinter.DONT_WAIT):
     d_o_e(d_w)
     if _got_release:
         d_o_e(d_w)
