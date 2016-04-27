@@ -25,7 +25,7 @@ You will receive full credit for this question if the command above works
 without exceptions and your agent wins at least 80% of the time. The
 automated tester will run 100 test games after the 2000 training games.
 
-**Hint:** If your ```QLearningAgent```= works for [```gridworld.py```](../code/gridworld.py)
+**Hint:** If your ```QLearningAgent``` works for [```gridworld.py```](../code/gridworld.py)
 and [```crawler.py```](../code/crawler.py) but does not seem to be learning a
 good policy for Pacman on ```smallGrid```, it may be because your ```getAction```
 and/or ```getPolicy``` methods do not in some cases properly consider unseen
@@ -40,7 +40,7 @@ option ```-a```, for example
 -a epsilon=0.1,alpha=0.3,gamma=0.7
 ```  
 
-These values will then be accessible as ```self.epsilon, self.gamma```
+These values will then be accessible as ```self.epsilon```, ```self.gamma```
 and ```self.alpha``` inside the agent.
 
 **Note:** While a total of 2010 games will be played, the first 2000 games
