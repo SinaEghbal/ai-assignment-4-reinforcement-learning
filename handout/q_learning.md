@@ -20,8 +20,8 @@ implement the methods
 
  - ```update(state, action, nextState, reward)```
  - ```getValue(state)```,
- - ```getQValue(state)```
- - and ```getPolicy( state, action)```.
+ - ```getQValue(state, action)```
+ - and ```getPolicy(state)```.
 
 **Note:** For ```getPolicy```, you should break ties randomly for better behavior.
 The standard Python ```random.choice()``` function will help.  In a particular state,
@@ -116,7 +116,7 @@ policy will be learned after 50 iterations? ```question6()``` in
 
 if there is none.  Epsilon is controlled by ```-e```, learning rate by ```-l```.
 
-**Note:** Your response should be not depend on the exact
+**Note:** Your response should not depend on the exact
 tie-breaking mechanism used to choose actions. This means your
 answer should be correct even if for instance we rotated the entire
 bridge grid world 90 degrees.
