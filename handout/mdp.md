@@ -8,7 +8,7 @@ python gridworld.py -m
 
 You will see the two-exit layout discussed in the slides.  The blue dot is the agent.  
 Note that when you press ```up```, the agent only actually moves north 80% of the
-time.  Such is the life of a ```Gridworld``` agent!
+time. Woe is him, such is the life of a ```Gridworld``` agent!
 
 You can control many aspects of the simulation. A full list of options is available by running:
 
@@ -52,9 +52,9 @@ it should run (option ```-i```) in its initial planning phase. ```ValueIteration
 takes an instance of the class ```MDP``` on construction and runs Value Iteration
 for the specified number of iterations before the constructor returns.
 
-Value Iteration computes _k_-step estimates of the optimal values, V<sub>k</sub>.  
-In addition to running value iteration, implement the following methods for ```ValueIterationAgent```
-using V<sub>k</sub>.
+Value Iteration computes _k_-step estimates of the optimal values, V<sub>k</sub>. In
+addition to running value iteration, implement the following methods
+for ```ValueIterationAgent``` using V<sub>k</sub>.
 
  - ```getValue(s)``` returns the value of a state _s_, i.e. V<sub>k</sub>(_s_).
  - ```getPolicy(s)``` returns the **best** action _a_ according to the computed values V<sub>k</sub>.
@@ -78,14 +78,16 @@ or the actual policy for the kth iteration, <img src="images/pi.png" alt="pi"/><
 which you'll get if you store optimal actions from the most recent round of value iteration updates.
 
 The following command loads your ```ValueIterationAgent```, computing a policy and executing
-it 10 times. Press a key to cycle through values, Q-values, and the simulation.  
-You should find that the value of the start state  (V(_start_), which you can read
-off of the GUI) and the empirical resulting average reward (printed after the 10
-rounds of execution finish) are quite close.
+it 10 times
 
 ```
 python gridworld.py -a value -i 100 -k 10
 ```
+
+Press any key to cycle through values, Q-values, and the simulation.  
+You should find that the value of the start state  (V(_start_), which you can read
+off of the GUI) and the empirical resulting average reward (printed after the 10
+rounds of execution finish) are quite close.
 
 **Hint:** On the default ```BookGrid```, running value iteration for 5 iterations should give you this output:
 

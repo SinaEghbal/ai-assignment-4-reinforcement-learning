@@ -17,6 +17,16 @@ changes you should be able to run Q-learning Pacman for very tiny grids as follo
 python pacman.py -p PacmanQAgent -x 2000 -n 2010 -l smallGrid
 ```
 
+This is not a entirely trivial task. Compare the performance attained by your Q-learning
+agent against what you can do right off the bat
+
+```
+python pacman.py -l smallGrid
+```
+
+you will appreciate that while we get the task "about right" with a few games,
+Q-learning needs a quite huge number of trials before it starts playing _okay_.
+
 Note that the class ```PacmanQAgent``` is already defined for you in terms of
 the class ```QLearningAgent``` you've already written.  ```PacmanQAgent```
 is only different in that it has default learning parameters that are more
@@ -54,6 +64,7 @@ to your agent as the option ```numTraining```.
 ```
 python pacman.py -p PacmanQAgent -n 10 -l smallGrid -a numTraining=10
 ```
+
 During training, you will see output every 100 games with statistics about how
 Pacman is faring. Epsilon is positive during training, so Pacman will play poorly
 even after having learned a good policy: this is because he occasionally makes a

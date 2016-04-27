@@ -15,7 +15,7 @@ instead learns by trial and error from interactions with the environment
 through its ```update(state, action, nextState, reward)``` method. A stub of a
 Q-learner is specified in the class ```QLearningAgent``` you can find in
 the module [```qlearningAgents.py```](../code/qlearningAgents.py) ,
-and you can select it with the option ```'-a q'```.  For this exericse, you must
+and you can select it with the option ```'-a q'```.  For this Exercise, you must
 implement the methods
 
  - ```update(state, action, nextState, reward)```
@@ -55,6 +55,12 @@ see the following Q-values:
 <img src="images/q-learning.png" width="50%" alt="QLearning"/>
 </center>
 
+**Note:** Q-learning may look to you _shockingly_ slow when it comes to converge to
+quasi-optimal Q-values, even when one is steering the learning *manually*
+towards the optimal policy. Take into account that you, by just looking at
+the grid, can figure out quite quickly what needs to be done. The Q-learning
+agent has to *discover* the right answer from first principles.
+
 **Grading:** We will run your Q-learning agent on an example of our own and
 check that it learns the same Q-values and policy as our reference implementation
 when each is presented with the same set of examples.
@@ -70,6 +76,8 @@ time, and follows its current best Q-values otherwise.
 ```
 python gridworld.py -a q -k 100
 ```
+
+You may want to speed up the proceedings by using the option ```-s 1.0```.
 
 Your final Q-values should resemble those of your Value Iteration agent, especially
 along well-traveled paths.  However, your average returns will be lower than the
