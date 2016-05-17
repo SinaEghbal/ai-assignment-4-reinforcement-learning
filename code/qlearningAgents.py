@@ -100,9 +100,35 @@ class QLearningAgent(ReinforcementAgent):
         """
         # Pick Action
         legalActions = self.getLegalActions(state)
+        if not legalActions:
+            return None
+        elif util.flipCoin(self.epsilon):
+            return random.choice(legalActions)
+        else:
+            return self.exploit(legalActions, state)
+        # action = None
+        # actionList = list()
+        # # print(legalActions)
+        # for currentAction in legalActions:
+        #     currentQValue = self.getQValue(state, currentAction)
+        #     if not actionList or \
+        #              currentQValue > actionList[0][0]:
+        #         actionList = list()
+        #         actionList.append((currentQValue, currentAction))
+        #     elif currentQValue == actionList[0][0]:
+        #         actionList.append((currentQValue, currentAction))
+        # # if len(actionList) == 1:
+        # #     action = actionList[0][1]
+        # # else:
+        #     action = random.choice(actionList)
+        # # print(action)
+        # if not action:
+        #     return action
+        # return action[1]
+
+    def exploit(self, legalActions, state):
         action = None
         actionList = list()
-        # print(legalActions)
         for currentAction in legalActions:
             currentQValue = self.getQValue(state, currentAction)
             if not actionList or \
@@ -111,11 +137,7 @@ class QLearningAgent(ReinforcementAgent):
                 actionList.append((currentQValue, currentAction))
             elif currentQValue == actionList[0][0]:
                 actionList.append((currentQValue, currentAction))
-        # if len(actionList) == 1:
-        #     action = actionList[0][1]
-        # else:
             action = random.choice(actionList)
-        # print(action)
         if not action:
             return action
         return action[1]
