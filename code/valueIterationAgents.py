@@ -13,6 +13,7 @@
     Student number:
     Date:
 """
+import numbers
 
 import mdp, util
 
@@ -43,8 +44,32 @@ class ValueIterationAgent(ValueEstimationAgent):
         self.discount = discount
         self.iterations = iterations
         self.values = util.Counter() # A Counter is a dict with default 0
+        self.states = self.mdp.getStates()
+        self.terminal = self.states.pop(0)
+        # a = self.mdp.getStates()
+        for x, y in self.states:
+            thisState = self.mdp.grid.data[x][y]
+            if isinstance(thisState, numbers.Number):
+                self.values[(x, y)] = thisState
+            else:
+                self.values[(x, y)]
 
-        "*** YOUR CODE HERE ***"
+        for i in range(0, iterations):
+            for currentState in self.states:
+                if self.mdp.isTerminal(currentState):
+                    continue
+                max = (None, None, None)
+                for currentAction in self.mdp.getPossibleActions(currentState):
+                   currentProbability = 0
+                   # max = (None, None, None)
+                   for transition, probability \
+                           in self.mdp.getTransitionStatesAndProbs(currentState, currentAction):
+                       currentProbability += probability * self.getValue(transition)
+                   currentProbability *= discount
+                   if not max[0] or currentProbability > max[0]:
+                       max = (currentProbability, currentAction, transition)
+                currentProbability = max[0] + self.mdp.getReward(currentState, max[1], max[2])
+                self.values[currentState] = (self.getValue(currentState) * i + currentProbability)/ (i+1)
 
     def getValue(self, state):
         """
@@ -61,8 +86,11 @@ class ValueIterationAgent(ValueEstimationAgent):
           necessarily create this quantity and you may have
           to derive it on the fly.
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        qValue = 0
+        for action, probability in self.mdp.getTransitionStatesAndProbs\
+                    (state,action):
+            qValue += probability * self.getValue(action)
+        return qValue
 
     def getPolicy(self, state):
         """
@@ -72,8 +100,26 @@ class ValueIterationAgent(ValueEstimationAgent):
           there are no legal actions, which is the case at the
           terminal state, you should return None.
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        max = (None, None)
+        for action in self.mdp.getPossibleActions(state):
+            x, y = state
+            cell = None
+            if action == 'north':
+                cell = (x, y+1)
+            elif action == 'south':
+                cell = (x, y-1)
+            elif action == 'east':
+                cell = (x+1, y)
+            elif action == 'west':
+                cell = (x-1, y)
+            elif action == 'exit':
+                return action
+            if cell in self.values:
+                currentValue = self.getValue(cell)
+                if not max[1] or max[1] < currentValue:
+                    max = (action, currentValue)
+        return max[0]
+
 
     def getAction(self, state):
         "Returns the policy at the state (no exploration)."

@@ -228,7 +228,6 @@ class Counter(dict):
         """
         Multiplying two counters gives the dot product of their vectors where
         each unique label is a vector element.
-
         >>> a = Counter()
         >>> b = Counter()
         >>> a['first'] = -2
@@ -254,7 +253,6 @@ class Counter(dict):
         """
         Adding another counter to a counter increments the current counter
         by the values stored in the second counter.
-
         >>> a = Counter()
         >>> b = Counter()
         >>> a['first'] = -2
@@ -392,7 +390,7 @@ def flipCoin( p ):
     r = random.random()
     return r < p
 
-def chooseFromDistribution( distribution ):
+def chooseFromDistribution(distribution):
     "Takes either a counter or a list of (prob, key) pairs and samples"
     if type(distribution) == dict or type(distribution) == Counter:
         return sample(distribution)

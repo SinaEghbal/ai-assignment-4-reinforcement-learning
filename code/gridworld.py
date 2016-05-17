@@ -107,7 +107,6 @@ class Gridworld(mdp.MarkovDecisionProcess):
         """
         return state == self.grid.terminalState
 
-
     def getTransitionStatesAndProbs(self, state, action):
         """
         Returns list of (nextState, prob) pairs
