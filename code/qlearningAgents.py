@@ -13,6 +13,7 @@
     Student number:
     Date:
 """
+from copy import deepcopy
 
 from game import *
 from learningAgents import ReinforcementAgent
@@ -106,25 +107,6 @@ class QLearningAgent(ReinforcementAgent):
             return random.choice(legalActions)
         else:
             return self.exploit(legalActions, state)
-        # action = None
-        # actionList = list()
-        # # print(legalActions)
-        # for currentAction in legalActions:
-        #     currentQValue = self.getQValue(state, currentAction)
-        #     if not actionList or \
-        #              currentQValue > actionList[0][0]:
-        #         actionList = list()
-        #         actionList.append((currentQValue, currentAction))
-        #     elif currentQValue == actionList[0][0]:
-        #         actionList.append((currentQValue, currentAction))
-        # # if len(actionList) == 1:
-        # #     action = actionList[0][1]
-        # # else:
-        #     action = random.choice(actionList)
-        # # print(action)
-        # if not action:
-        #     return action
-        # return action[1]
 
     def exploit(self, legalActions, state):
         action = None
@@ -154,8 +136,6 @@ class QLearningAgent(ReinforcementAgent):
         self.values[(state, action)] +=\
         self.alpha * (reward + self.discount *
                       self.getValue(nextState) - self.getQValue(state, action))
-        # "*** YOUR CODE HERE ***"
-        # util.raiseNotDefined()
 
 class PacmanQAgent(QLearningAgent):
     "Exactly the same as QLearningAgent, but with different default parameters"
@@ -200,32 +180,39 @@ class ApproximateQAgent(PacmanQAgent):
     def __init__(self, extractor='IdentityExtractor', **args):
         self.featExtractor = util.lookup(extractor, globals())()
         PacmanQAgent.__init__(self, **args)
-
-        # You might want to initialize weights here.
-        "*** YOUR CODE HERE ***"
+        # self.feature = Counter()
+        self.weights = Counter()
 
     def getQValue(self, state, action):
         """
           Should return Q(state,action) = w * featureVector
           where * is the dotProduct operator
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        features = self.featExtractor.getFeatures(state, action)
+        val = 0
+        for feature, feature_val in features.items():
+            if feature not in self.weights:
+                self.weights[feature] = 0#random.random()
+            val += feature_val * self.weights[feature]
+        return val
 
     def update(self, state, action, nextState, reward):
         """
            Should update your weights based on transition
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        correction = reward + self.discount * self.getValue(nextState) - self.getQValue(state, action)
+        features = self.featExtractor.getFeatures(state, action)
+        for feature, val in features.items():
+            self.weights[feature] += self.alpha * correction * val
 
     def final(self, state):
         "Called at the end of each game."
         # call the super-class final method
         PacmanQAgent.final(self, state)
+        # print(self.episodesSoFar)
 
         # did we finish training?
         if self.episodesSoFar == self.numTraining:
-            # you might want to print your weights here for debugging
-            "*** YOUR CODE HERE ***"
             pass
+            # you might want to print your weights here for debugging
+            # print(self.weights)
