@@ -9,9 +9,9 @@
 # March and April 2016
 
 """ Student Details
-    Student Name:
-    Student number:
-    Date:
+    Student Name: Sina Eghbal
+    Student number: u5544352
+    Date: 27 May 2016
 """
 import numbers
 

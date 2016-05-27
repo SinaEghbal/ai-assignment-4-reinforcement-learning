@@ -9,9 +9,9 @@
 # March and April 2016
 
 """ Student Details
-    Student Name:
-    Student number:
-    Date:
+    Student Name: Sina Eghbal
+    Student number: u5544352
+    Date: 27 May 2016
 """
 
 ######################
@@ -37,12 +37,13 @@ def question3b():
     answerDiscount = None
     answerNoise = None
     answerLivingReward = None
-    return answerDiscount, answerNoise, answerLivingReward
+    return 'NOT POSSIBLE'
+    # return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3c():
     answerDiscount = 0.9
-    answerNoise = 0.5
+    answerNoise = 0.2
     answerLivingReward = 0.0
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'

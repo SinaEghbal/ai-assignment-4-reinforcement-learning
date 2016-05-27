@@ -9,9 +9,9 @@
 # March and April 2016
 
 """ Student Details
-    Student Name:
-    Student number:
-    Date:
+    Student Name: Sina Eghbal
+    Student number: u5544352
+    Date: 27 May 2016
 """
 from copy import deepcopy
 
@@ -49,8 +49,6 @@ class QLearningAgent(ReinforcementAgent):
         "You can initialize Q-values here..."
         ReinforcementAgent.__init__(self, **args)
         self.values = Counter()
-        # for state in self.getStates():
-        #     a = None
 
 
     def getQValue(self, state, action):
