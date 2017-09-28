@@ -1,22 +1,17 @@
 # COMP3620/6320 Assignment 4
 
-## If you're forking this repo, make sure your fork visibility is set to PRIVATE!!!
-
 ## Reinforcement Learning
 
-This is the GitLab repository for COMP3620/6320 Assignment 4. Please follow the instructions
-below:
+![PacMan](handout/images/capsule.png)
+<blockquote>
+  <p><cite><center>Pacman seeks reward.<br>
+  Should he eat or should he run?<br>
+  When in doubt, Q-learn.</center></cite></p>
+</blockquote>
 
-1. Mark this project as favorite by clicking on the "star" button above. In this way you'll be notified
-   of any commits (changes) made to any of the files in the repository.
-2. If you're **not** familiar with Git and
-    * _you don't care_, then proceed the click the button with the arrow pointing downwards to
-    download the assignment files compressed in **ZIP** format. Unzip to the location of your
-    choice and skip to Step 4.
-    * _you care_, then help yourself following this [hands-on tutorial](https://try.github.io).
-3. If you're **already** familiar with Git
-    * you can just clone the repo from the URL in the textbox above,
-    * _but we recommend_ that you instead fork it in your own Gitlab workspace, remember to
-   set as the upstream this repository,
-   * and make sure that your forked repo visibility is **Private**.
-4. Click [here](handout/index.md) to access the handout.
+## Table of Contents
+
+1. [Introduction](handout/intro.md)
+2. [Markov Decision Processes (3 Exercises, 30 marks overall)](handout/mdp.md)
+3. [Q-Learning (50 Marks)](handout/q_learning.md)
+4. [Approximate Q-learning and State Abstraction (20 Marks)](handout/approx_q_learn.md)
